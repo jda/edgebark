@@ -7,7 +7,7 @@ import (
 )
 
 // user access events
-func eventNotifyUser(e EdgeEvent) {
+func eventNotifyUser(cfg config, e EdgeEvent) {
 	c := hipchat.NewClient(cfg.HipchatKey)
 
 	msg := fmt.Sprintf(eventMap[e.Type], e.FirstName, e.LastName, e.Door)
@@ -28,7 +28,7 @@ func eventNotifyUser(e EdgeEvent) {
 }
 
 // door events
-func eventNotifyDoor(e EdgeEvent) {
+func eventNotifyDoor(cfg config, e EdgeEvent) {
 	c := hipchat.NewClient(cfg.HipchatKey)
 
 	msg := fmt.Sprintf(eventMap[e.Type], e.Door)
@@ -50,7 +50,7 @@ func eventNotifyDoor(e EdgeEvent) {
 }
 
 // system events
-func eventNotifySys(e EdgeEvent) {
+func eventNotifySys(cfg config, e EdgeEvent) {
 	c := hipchat.NewClient(cfg.HipchatKey)
 
 	msg := fmt.Sprintf(eventMap[e.Type], e.Controller)

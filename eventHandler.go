@@ -61,7 +61,7 @@ func newEvent(w http.ResponseWriter, r *http.Request) {
 		ev.FirstName = r.FormValue("firstname")
 		ev.LastName = r.FormValue("lastname")
 
-		go eventNotifyUser(ev)
+		go eventNotifyUser(cfg, ev)
 
 	// door events without cardholder fname, lname
 	case "denied_cardunassigned", "denied_nocard", "denied_nopin",
@@ -76,14 +76,14 @@ func newEvent(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		go eventNotifyDoor(ev)
+		go eventNotifyDoor(cfg, ev)
 
 	// system events
 	case "alarm_ack", "alarm_inputa", "alarm_inputb", "alarm_tamper", "time_set":
 		ev.Type = t
 		ev.Door = r.FormValue("door")
 
-		go eventNotifySys(ev)
+		go eventNotifySys(cfg, ev)
 
 	// unknown event
 	default:

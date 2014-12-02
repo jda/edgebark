@@ -12,30 +12,30 @@ type config struct {
 	HipchatRoom string
 }
 
-func loadConfig(c config) (config, error) {
+func loadConfig() error {
 	inError := false
 
-	c.Port = os.Getenv("PORT")
-	if c.Port == "" {
+	cfg.Port = os.Getenv("PORT")
+	if cfg.Port == "" {
 		inError = true
 		log.Println("config error: PORT not set")
 	}
 
-	c.HipchatKey = os.Getenv("HIPCHAT_KEY")
-	if c.HipchatKey == "" {
+	cfg.HipchatKey = os.Getenv("HIPCHAT_KEY")
+	if cfg.HipchatKey == "" {
 		inError = true
 		log.Println("config error: HIPCHAT_KEY not set")
 	}
 
-	c.HipchatRoom = os.Getenv("HIPCHAT_ROOM")
-	if c.HipchatRoom == "" {
+	cfg.HipchatRoom = os.Getenv("HIPCHAT_ROOM")
+	if cfg.HipchatRoom == "" {
 		inError = true
 		log.Println("config error: HIPCHAT_ROOM not set")
 	}
 
 	if inError {
-		return c, errors.New("config env incomplete")
+		return errors.New("config env incomplete")
 	}
 
-	return c, nil
+	return nil
 }

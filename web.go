@@ -13,7 +13,7 @@ func main() {
 	r.HandleFunc("/event/{id}/{category}/{type}", newEvent)
 	http.Handle("/", r)
 
-	cfg, err := loadConfig(cfg)
+	err := loadConfig()
 	if err != nil {
 		log.Panic(err)
 	}
