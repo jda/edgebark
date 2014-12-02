@@ -6,4 +6,39 @@ Card Access event notification handler for HID Edge access controllers
 ## Controller setup
 Your access controller needs to be configured to send event notifications to edgebark.
 
-You can configure as many or few of these as you want:
+First name: firstname
+Last name: lastname
+Door name: door
+
+Event handler URLs follow this pattern: /event/*controller_id*/*category*/*type*?**PARAMS**
+
+controller_id is whatever you call your controller, e.g.: msp-office1-floor1
+category is one of access, alarm, door, or system
+
+| Description | Category | Type | Params |
+|---|---|---|---|---|
+| Access granted | access | granted | door=$door-name&firstname=$firstname&lastname=$lastname  |
+| Access granted with extra time  | access | granted_extratime | door=$door-name&firstname=$firstname&lastname=$lastname |
+| Access denied by schedule | access | denied_schedule | door=$door-name&firstname=$firstname&lastname=$lastname |
+| Access denied because of a invaid PIN  | access | denied_wrongpin | door=$door-name&firstname=$firstname&lastname=$lastname |
+|  Access denied because of a expired card | access | denied_expiredcard | door=$door-name&firstname=$firstname&lastname=$lastname |
+| Access denied because PIN is locked out  | access | denied_pinlocked | door=$door-name&firstname=$firstname&lastname=$lastname |
+| Access denied because PIN expired  | access | denied_expiredpin |  door=$door-name&firstname=$firstname&lastname=$lastname |
+| Access denied because card known but unassigned  | door | denied_cardunassigned | door=$door-name |
+| Access denied because no card (tried to use PIN but card required)  | door | denied_nocard | door=$door-name |
+| Access denied because no PIN (tried to use card but PIN required) | door | denied_nopin | door=$door-name |
+| Door unlocked by schedule  | door | door_schedule_unlocked  | door=$door-name |
+| Door locked by schedule | door | door_locked_schedule  | door=$door-name |
+| Door open without access grant | door | alarm_forced | door=$door-name |
+| Door held open past timeout | door | alarm_held | door=$door-name |
+| Access granted manually through controller | door | granted_manual | door=$door-name |
+| Door unlocked manually through controller  | door | door_unlocked | door=$door-name |
+| Door locked manually through controller  | door | door_locked | door=$door-name |
+| System time set | system | time_set |  |  
+| Alarm acknowledged  | alarm | alarm_ack | | 
+| Alarm on input A | alarm | alarm_inputa | | 
+| Alarm on input B | alarm | alarm_inputb | | 
+| Tamper alarm | alarm | alarm_tamper| | 
+
+
+
