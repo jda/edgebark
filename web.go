@@ -1,25 +1,27 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gorilla/mux"
+	"log"
 	"net/http"
-	"os"
-  "github.com/gorilla/mux"
 )
 
+var cfg config
+
 func main() {
-  r := mux.NewRouter()
-  r.HandleFunc("/event/{id}/access/{type}", accessEvent)
-  r.HandleFunc("/event/{id}/alarm/{type}", alarmEvent)
-  r.HandleFunc("/event/{id}/door/{type}", doorEvent)
-  r.HandleFunc("/event/{id}/system/{type}", systemEvent)
-  http.Handle("/", r)
-  
-	port := os.Getenv("PORT")
-	fmt.Printf("listening on port %s...\n", port)
-	err := http.ListenAndServe(":"+port, nil)
+	r := mux.NewRouter()
+	r.HandleFunc("/event/{id}/{category}/{type}", newEvent)
+	http.Handle("/", r)
+
+	cfg, err := loadConfig(cfg)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
+	}
+
+	log.Printf("listening on port %s...\n", cfg.Port)
+	err = http.ListenAndServe(":"+cfg.Port, nil)
+	if err != nil {
+		log.Panic(err)
 	}
 }
 
