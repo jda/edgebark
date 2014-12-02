@@ -2,22 +2,25 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 	"os"
 )
 
 func main() {
-	http.HandleFunc("/", hello)
+	r := mux.NewRouter()
+	r.HandleFunc("/event/access/{type}", accessEvent)
+	r.HandleFunc("/event/alarm/{type}", alarmEvent)
+	r.HandleFunc("/event/door/{type}", doorEvent)
+	r.HandleFunc("/event/system/{type}", systemEvent)
+	http.Handle("/", r)
+
 	port := os.Getenv("PORT")
 	fmt.Printf("listening on port %s...\n", port)
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		panic(err)
 	}
-}
-
-func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintln(res, "hello, world")
 }
 
 // accept it, parse it, "go" to fork handler and return right away.
