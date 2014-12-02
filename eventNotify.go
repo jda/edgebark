@@ -37,7 +37,7 @@ func eventNotifyDoor(cfg config, e EdgeEvent) {
 	color := "red"
 	switch e.Type {
 	case "door_schedule_unlocked", "door_locked_schedule":
-		color = "grey"
+		color = "gray"
 	case "granted_manual", "door_unlocked", "door_locked":
 		color = "purple"
 	}
@@ -60,7 +60,7 @@ func eventNotifySys(cfg config, e EdgeEvent) {
 	notify := true
 	switch e.Type {
 	case "time_set":
-		color = "grey"
+		color = "gray"
 		notify = false
 	case "alarm_ack":
 		color = "yellow"
