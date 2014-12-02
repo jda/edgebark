@@ -7,8 +7,9 @@ import (
 )
 
 type config struct {
-	Port       string // yes, is properly a int but we always use it as a str so...
-	HipchatKey string
+	Port        string // yes, is properly a int but we always use it as a str so...
+	HipchatKey  string
+	HipchatRoom string
 }
 
 func loadConfig(c config) (config, error) {
@@ -24,6 +25,12 @@ func loadConfig(c config) (config, error) {
 	if c.HipchatKey == "" {
 		inError = true
 		log.Println("config error: HIPCHAT_KEY not set")
+	}
+
+	c.HipchatRoom = os.Getenv("HIPCHAT_ROOM")
+	if c.HipchatRoom == "" {
+		inError = true
+		log.Println("config error: HIPCHAT_ROOM not set")
 	}
 
 	if inError {
