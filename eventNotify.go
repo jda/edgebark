@@ -21,9 +21,9 @@ func eventNotifyUser(e EdgeEvent) {
 	}
 
 	notif := &hipchat.NotificationRequest{Message: msg, Color: color, Notify: notify}
-	_, err := c.Room.Notification(cfg.HipchatRoom, notif)
+	resp, err := c.Room.Notification(cfg.HipchatRoom, notif)
 	if err != nil {
-		log.Printf("error sending hipchat notification: %s", err)
+		log.Printf("error sending hipchat notification: %s, %+v", err, resp)
 	}
 }
 
@@ -43,9 +43,9 @@ func eventNotifyDoor(e EdgeEvent) {
 	}
 
 	notif := &hipchat.NotificationRequest{Message: msg, Color: color}
-	_, err := c.Room.Notification(cfg.HipchatRoom, notif)
+	resp, err := c.Room.Notification(cfg.HipchatRoom, notif)
 	if err != nil {
-		log.Printf("error sending hipchat notification: %s", err)
+		log.Printf("error sending hipchat notification: %s, %+v", err, resp)
 	}
 }
 
@@ -68,8 +68,8 @@ func eventNotifySys(e EdgeEvent) {
 	}
 
 	notif := &hipchat.NotificationRequest{Message: msg, Color: color, Notify: notify}
-	_, err := c.Room.Notification(cfg.HipchatRoom, notif)
+	resp, err := c.Room.Notification(cfg.HipchatRoom, notif)
 	if err != nil {
-		log.Printf("error sending hipchat notification: %s", err)
+		log.Printf("error sending hipchat notification: %s, %+v", err, resp)
 	}
 }
