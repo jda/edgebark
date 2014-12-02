@@ -4,7 +4,7 @@ var eventMap map[string]string = map[string]string{
 	// user access events
 	"granted":            "Access granted to %s %s at door %s",
 	"granted_extratime":  "Access granted to %s %s at door %s (with extra time)",
-	"denied_schedule":    "Access granted to %s %s at door %s (denied by schedule)",
+	"denied_schedule":    "Access denied to %s %s at door %s (denied by schedule)",
 	"denied_wrongpin":    "Access denied to %s %s at door %s (wrong PIN)",
 	"denied_expiredcard": "Access denied to %s %s at door %s (card expired)",
 	"denied_pinlocked":   "Access denied to %s %s at door %s (PIN locked out)",
